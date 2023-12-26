@@ -1,0 +1,92 @@
+= Ubuntu 20.04 Arduino Kurulumu ve Rosserial Kurulumu
+
+Bu belge, Ubuntu 20.04 işletim sisteminde Arduino IDE ve Rosserial'ın nasıl kurulacağını adım adım anlatmaktadır.
+
+== Arduino Kurulumu
+
+. Arduino resmi web sitesine gidin: https://www.arduino.cc/
+
+. "Software" sekmesine tıklayın ve "Arduino IDE 2.0.1" altında bulunan "Linux App Image 64 bits"i indirin.
+
+. Ana dizinde "Arduino" adında bir klasör oluşturun ve indirdiğiniz dosyayı bu klasöre taşıyın.
+
+. İndirilen dosyaya sağ tıklayın, "Permissions" kısmına gidin ve "Allow executing file as program" seçeneğini işaretleyin.
+
+. Aşağıdaki komutu terminalde çalıştırın:
++
+[source, bash]
+----
+sudo apt install libfuse2
+----
+
+. Ardından, indirilen Arduino IDE dosyasını çalıştırın.
+
+== Rosserial Kurulumu
+
+. ROS paketlerini kurun:
++
+[source, bash]
+----
+sudo apt-get install ros-noetic-rosserial-arduino
+sudo apt-get install ros-noetic-rosserial
+----
+
+. Rosserial'ın noetic için güncel versiyonunu 'catkin_ws/src' dizinine klonlayın: https://github.com/ros-drivers/rosserial
+
+. 'my_custom_msgs' isimli ROS paketinizi derleyin. 'catkin_ws/devel/include' altında, paketinizi ve ilgili header dosyasının olduğundan emin olun.
+
+. Arduino kütüphanelerini oluşturmak için aşağıdaki komutu kullanın:
++
+[source, bash]
+----
+rosrun rosserial_client make_libraries.py <arduino_library_path> <message_pkg_name>
+----
+
+. Örnek kullanım:
++
+[source, bash]
+----
+rosrun rosserial_arduino make_libraries.py ~/Arduino/libraries my_custom_msgs
+----
+
+. '~/Arduino/libraries' içinde 'ros_lib' adında bir klasör ve bu klasör içinde Arduino taslağında '#include<>' yapabileceğiniz 'MyCustomMsgs.h' dosyasını içeren 'my_custom_msgs' adında bir klasör olmalıdır.
+
+== ArduinoIDE
+
+. Arduino IDE'de "Tools" > "Manage Library" seçeneğine tıklayın.
+
+. Arama kutusuna "Rosserial" yazarak kütüphaneyi kurun.
+
+== Arduino - Ubuntu Port Ayarları
+
+. Arduino cihazınızın bağlı olduğu portu kontrol edin ve gerekli izinleri verin:
++
+[source, bash]
+----
+ls -l /dev/ttyACM*
+sudo chmod a+rw /dev/ttyACM0
+sudo usermod -a -G dialout $USER
+----
+
+== Haberleşme
+
+. ROS core başlatın:
++
+[source, bash]
+----
+roscore
+----
+
+. Rosserial ile haberleşmeyi başlatın:
++
+[source, bash]
+----
+rosrun rosserial_python serial_node.py /dev/ttyACM0
+----
+
+. Mevcut ROS konularını listelemek için:
++
+[source, bash]
+----
+rostopic list
+----

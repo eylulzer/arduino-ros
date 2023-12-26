@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/opt/ros/noetic/include/**",
+        "/home/noetic/catkin_ws/devel/include/**",
+        "/home/noetic/catkin_ws/src/dowaksa_amr/dowaksa_amr_base/include/**",
+        "/home/noetic/catkin_ws/src/dowaksa_amr/dowaksa_amr_control/include/**",
+        "/home/noetic/catkin_ws/src/dowaksa_amr/dowaksa_amr_driver/include/**",
+        "/home/noetic/catkin_ws/src/dowaksa_amr/fetch_open_auto_dock/include/**",
+        "/home/noetic/catkin_ws/src/follow_bot/include/**",
+        "/home/noetic/catkin_ws/src/rf2o/include/**",
+        "/home/noetic/catkin_ws/src/rosserial/rosserial_server/include/**",
+        "/home/noetic/catkin_ws/src/rosserial/rosserial_test/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
